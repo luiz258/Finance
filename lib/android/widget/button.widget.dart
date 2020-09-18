@@ -21,7 +21,7 @@ class FButton extends StatelessWidget {
     
     return Container(
       
-      height: 70,
+      height: 68,
       width: width != null ? width : 400,
       child: FlatButton(
         color: color != null ? color : Theme.of(context).primaryColor,
