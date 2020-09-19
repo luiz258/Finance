@@ -1,11 +1,23 @@
 import 'package:Finance/android/views/home.view.dart';
 import 'package:Finance/android/views/over-view.view.dart';
 import 'package:Finance/android/widget/button.widget.dart';
+import 'package:Finance/store/login.store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../android-theme.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+
+
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+
+  LoginStore  loginStore = new LoginStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +95,7 @@ class LoginView extends StatelessWidget {
                         ),
                         border: InputBorder.none,
                       ),
+                      onChanged: loginStore.setEmail,
                     ),
                   ],
                 ),
@@ -125,8 +138,9 @@ class LoginView extends StatelessWidget {
                         style: androidTheme().textTheme.display1,
                       ),
                     ),
-                    TextField(
-                      obscureText: true,
+                    Observer(builder: (_){
+                      return TextField(
+                      obscureText: !loginStore.passwordShow,
                       style: TextStyle(
                           color: Theme.of(context).primaryColorDark,
                           fontSize: 18),
@@ -136,11 +150,13 @@ class LoginView extends StatelessWidget {
                           color: Theme.of(context).primaryColorDark,
                         ),
                         suffixIcon: IconButton(
-                            icon: Icon(Icons.remove_red_eye), onPressed: null),
+                            icon: Icon(!loginStore.passwordShow? Icons.visibility: Icons.visibility_off ), onPressed: loginStore.togglePassword),
                         border: InputBorder.none,
                         //Icons.remove_red_eye
                       ),
-                    ),
+                      onChanged: loginStore.setPassWord,
+                    );
+                    },),
                   ],
                 ),
               ),

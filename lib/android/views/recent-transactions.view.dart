@@ -1,5 +1,5 @@
 import 'package:Finance/android/widget/button.widget.dart';
-import 'package:Finance/android/widget/card.wideget.dart';
+
 import 'package:flutter/material.dart';
 
 class RecentTrasactionsView extends StatelessWidget {
@@ -10,6 +10,7 @@ class RecentTrasactionsView extends StatelessWidget {
       appBar: AppBar(
         shadowColor: Colors.transparent,
         leading: IconButton(
+          onPressed: (){},
           icon: IconButton(
             icon: Icon(
               Icons.keyboard_arrow_left,

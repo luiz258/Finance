@@ -1,6 +1,9 @@
 import 'package:Finance/android/android-theme.dart';
 import 'package:Finance/android/widget/card.wideget.dart';
+import 'package:Finance/store/overview.store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import '../widget/card-profile.dart';
 
@@ -10,6 +13,15 @@ class OverViewView extends StatefulWidget {
 }
 
 class _OverViewViewState extends State<OverViewView> {
+  OverviewStore store;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    store = OverviewStore();
+    store.listOverview();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,19 +45,19 @@ class _OverViewViewState extends State<OverViewView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(left: 15),
+                              padding: EdgeInsets.only(left: 15),
                               child: Row(
-                            children: [
-                              Text(
-                                "OverView",
-                                style: androidTheme().textTheme.display2,
-                              ),
-                              Icon(
-                                Icons.notifications,
-                                color: Theme.of(context).primaryColor,
-                              )
-                            ],
-                          )),
+                                children: [
+                                  Text(
+                                    "OverView",
+                                    style: androidTheme().textTheme.display2,
+                                  ),
+                                  Icon(
+                                    Icons.notifications,
+                                    color: Theme.of(context).primaryColor,
+                                  )
+                                ],
+                              )),
                           Container(
                             padding: EdgeInsets.only(right: 15),
                             child: Text(
@@ -62,7 +74,25 @@ class _OverViewViewState extends State<OverViewView> {
                     Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Column(
-                          children: [CardWidget(), CardWidget(), CardWidget()],
+                          children: [
+                            Observer(
+                              builder: (_) => ListView.builder(
+                                 scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+                                itemCount: store.transaction.length,
+                                itemBuilder: (ctx, i) {
+                                  //print(store.transaction.length);
+                                  return new  CardWidget(
+                                    descri: store.transaction[i].descri,
+                                    icon: store.transaction[i].icon,
+                                    type: store.transaction[i].type,
+
+                                    value: store.transaction[i].value,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         )),
                   ],
                 ),

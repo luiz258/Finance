@@ -1,0 +1,27 @@
+[
+    {
+            
+        "icon":"1",
+         "type":"Sent",
+         "value":"150",
+         "descri": "Sending Payment to Clients"
+      
+    },
+    {
+        
+        "icon":"2",
+         "type":"Receive",
+         "value":"250",
+         "descri": "Receiving Salary from campany"
+      
+    },
+    {
+        
+        "icon":"3",
+         "type":"Loan",
+         "value":"400",
+         "descri": "Loan for the Car"
+      
+    }
+
+]
